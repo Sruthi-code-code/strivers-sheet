@@ -1,51 +1,27 @@
-#include<bits/stdc++.h>
-using namespace std;
-int secondsmallest(int arr[],int n)
-{
-    if (n<2)
-    return -1;
-int small=INT_MAX;
-int second_small=INT_MAX;
-int i;
-for (i=0;i<n;i++)
-{
-    if(arr[i]<small)
-	{
-        second_small=small;
-        small=arr[i];
+class Solution:
+    def getSecondLargest(self, arr):
+        if len(arr) < 2:
+            return -1
+        
+        # Initialize the largest and second largest
+        largest = second_largest = -1
+        
+        for num in arr:
+            if num > largest:
+                second_largest = largest
+                largest = num
+            elif num > second_largest and num != largest:
+                second_largest = num
+        
+        # If second_largest is still -1, it means there's no second largest element
+        return second_largest
 
-    }
-    else if(arr[i]<second_small&&arr[i]!=small)
-	{
-        second_small=arr[i];
-    }
-}
-return second_small;
-}
-int secondlarge(int arr[],int n){
-    if(n<2)
-    return -1;
-int large=INT_MAX,second_large=INT_MIN;
-int i;
-for(i=0;i<n;i++){
-    if(arr[i]>large){
-        second_large=large;
-        large=arr[i];
+if __name__ == "__main__":
+    t = int(input())
+    for _ in range(t):
+        arr = list(map(int, input().split()))
+        ob = Solution()
+        ans = ob.getSecondLargest(arr)
+        print(ans)
+        print("~")
 
-    }
-    else if(arr[i]>second_large&&arr[i]!=large){
-        second_large=arr[i];
-
-    }
-}
-return second_large;
-}
-int main(){
-    int arr[]={1,2,4,7,7,5};
-    int n=sizeof(arr)/sizeof(arr[0]);
-    int ss=secondsmallest(arr,n);
-    int sl=secondlarge(arr,n);
-    cout<<"second smallest is "<<ss<<endl;
-    cout<<"second largest is "<<sl<<endl;
-    return 0;
-}
